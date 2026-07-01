@@ -54,7 +54,7 @@
         @keyframes moveGrid { 0% { transform: translate(0, 0); } 100% { transform: translate(-30px, -30px); } }
 
         .container {
-            width: 100%; max-width: 550px; background: var(--panel-bg); backdrop-filter: blur(12px);
+            width: 100%; max-width: 600px; background: var(--panel-bg); backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px); padding: 30px 20px; border-radius: 20px;
             border: 1px solid var(--border-color); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
             text-align: center; position: relative; z-index: 2;
@@ -69,6 +69,8 @@
         button:hover { background-color: #dddddd; transform: translateY(-2px); }
         button.secondary-btn { background-color: transparent; color: var(--text-light); border: 1px solid var(--border-color); }
         button.secondary-btn:hover { background-color: rgba(255, 255, 255, 0.05); border-color: var(--accent-white); }
+        button.admin-action-btn { background-color: var(--warning-gold); color: #000000; font-size: 17px; margin-top: 15px; }
+        button.admin-action-btn:hover { background-color: #fcc21b; }
         
         .screen { display: none; }
         .screen.active { display: block; }
@@ -88,29 +90,30 @@
         .vote-btn { background: rgba(0,0,0,0.6); color: white; border: 1px solid var(--border-color); padding: 12px; font-size: 14px; border-radius: 8px; }
         .vote-btn.voted { background: var(--warning-gold); color: black; border-color: var(--warning-gold); }
 
-        /* 💬 نظام الشات */
+        /* 💬 نظام الشات المطور والكبير */
         .chat-container {
-            margin-top: 25px; border: 1px solid var(--border-color); border-radius: 12px;
-            background: rgba(0, 0, 0, 0.6); text-align: right; display: flex; flex-direction: column; overflow: hidden;
+            margin-top: 30px; border: 2px solid var(--border-color); border-radius: 14px;
+            background: rgba(5, 5, 5, 0.95); text-align: right; display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .chat-header { background: rgba(255,255,255,0.03); padding: 10px 15px; font-size: 14px; color: var(--text-muted); font-weight: bold; border-bottom: 1px solid var(--border-color); }
-        .chat-messages { padding: 15px; max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .chat-header { background: rgba(255,255,255,0.05); padding: 14px 18px; font-size: 16px; color: var(--text-light); font-weight: bold; border-bottom: 2px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .chat-messages { padding: 18px; max-height: 280px; min-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.3); }
         
-        .msg { padding: 8px 12px; border-radius: 8px; max-width: 85%; font-size: 14px; line-height: 1.4; word-wrap: break-word; }
-        .msg.my { background: var(--chat-my-msg); align-self: flex-start; border-left: 3px solid var(--accent-white); }
-        .msg.other { background: var(--chat-other-msg); align-self: flex-end; border-right: 3px solid var(--text-muted); }
-        .msg.system { background: rgba(234, 179, 8, 0.1); color: var(--warning-gold); align-self: center; text-align: center; font-size: 13px; max-width: 100%; width: 100%; border: 1px dashed rgba(234, 179, 8, 0.3); }
-        .msg-sender { font-weight: bold; font-size: 12px; color: var(--warning-gold); margin-bottom: 3px; display: block; }
+        .msg { padding: 12px 16px; border-radius: 10px; max-width: 85%; font-size: 15px; line-height: 1.5; word-wrap: break-word; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .msg.my { background: var(--chat-my-msg); align-self: flex-start; border-left: 4px solid var(--accent-white); }
+        .msg.other { background: var(--chat-other-msg); align-self: flex-end; border-right: 4px solid var(--warning-gold); }
+        .msg.system { background: rgba(234, 179, 8, 0.12); color: var(--warning-gold); align-self: center; text-align: center; font-size: 14px; max-width: 100%; width: 100%; border: 1px dashed rgba(234, 179, 8, 0.4); font-weight: 600; }
+        .msg-sender { font-weight: 800; font-size: 13px; color: var(--warning-gold); margin-bottom: 5px; display: block; }
         .msg.my .msg-sender { color: #fff; }
 
-        .chat-input-area { display: flex; border-top: 1px solid var(--border-color); background: #000; }
-        .chat-input-area input { flex: 1; margin: 0; padding: 12px; background: transparent; border: none; text-align: right; font-size: 14px; color: white; }
-        .chat-input-area button { width: auto; margin: 0; padding: 0 20px; border-radius: 0; background: var(--accent-white); color: black; font-size: 14px; }
+        .chat-input-area { display: flex; border-top: 2px solid var(--border-color); background: #000; }
+        .chat-input-area input { flex: 1; margin: 0; padding: 16px; background: transparent; border: none; text-align: right; font-size: 15px; color: white; outline: none; }
+        .chat-input-area button { width: auto; margin: 0; padding: 0 25px; border-radius: 0; background: var(--accent-white); color: black; font-size: 15px; font-weight: bold; }
 
         .footer { margin-top: 25px; font-size: 13px; color: var(--text-muted); z-index: 2; }
         .footer strong { color: var(--text-light); }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -176,16 +179,23 @@
             <h3>مين الحرامي اللي برا السالفة؟ صوتوا الحين!</h3>
             <div id="voteGridDisplay" class="vote-grid"></div>
             <div id="votingStatus" class="info-card">جاري جمع الأصوات...</div>
+            
+            <!-- زر كشف الحقيقة الخاص بالأدمن فقط -->
+            <button id="revealTruthBtn" class="admin-action-btn" style="display:none;">إنهاء التصويت وكشف الحقيقة 👁️</button>
+            
             <div id="finalResultBox" class="secret-box" style="display:none; font-size: 18px; padding: 20px;"></div>
             <button id="btnReset" class="secondary-btn" style="display:none; margin-top: 15px;">العودة للروم الأساسية</button>
         </div>
 
-        <!-- 💬 الشات المشترك الموحد -->
+        <!-- 💬 نظام الشات المشترك المطور والكبير -->
         <div id="globalChat" class="chat-container" style="display:none;">
-            <div class="chat-header">💬 شات الروم اللايف - قفش وشكوك</div>
+            <div class="chat-header">
+                <span>💬 شات الروم اللايف - قفش وشكوك</span>
+                <span style="font-size: 12px; color: var(--warning-gold);">● مباشر</span>
+            </div>
             <div id="chatMessages" class="chat-messages"></div>
             <div class="chat-input-area">
-                <input type="text" id="chatInput" placeholder="اكتب رسالتك أو شكوكك هنا...">
+                <input type="text" id="chatInput" placeholder="اكتب رسالتك أو شكوكك هنا للكل...">
                 <button id="sendMsgBtn">إرسال</button>
             </div>
         </div>
@@ -225,6 +235,7 @@
         document.getElementById('goToPhase2Btn').onclick = startPhase2;
         document.getElementById('nextQuestionBtn').onclick = nextQuestion;
         document.getElementById('goToPhase3Btn').onclick = startPhase3;
+        document.getElementById('revealTruthBtn').onclick = triggerRevealTruth;
         document.getElementById('btnReset').onclick = resetGame;
         document.getElementById('sendMsgBtn').onclick = sendChatMessage;
         document.getElementById('chatInput').addEventListener('keypress', function(e) { if(e.key === 'Enter') sendChatMessage(); });
@@ -241,7 +252,7 @@
 
             db.ref('rooms/' + roomCode).set({
                 admin: myName, status: "lobby", players: [myName],
-                impostors: [], category: "", word: "", qIndex: 0, votes: {}
+                impostors: [], category: "", word: "", qIndex: 0, votes: {}, truthRevealed: false
             }).then(() => {
                 listenToRoom(); listenToChat(); showScreen('lobbyScreen');
                 document.getElementById('startGameBtn').style.display = 'block';
@@ -272,7 +283,6 @@
             db.ref('rooms/' + roomCode).on('value', (snapshot) => {
                 const data = snapshot.val(); if (!data) return;
 
-                // 🛑 نظام الطرد: لو اسمي مابقاش موجود في مصفوفة اللاعبين، يعني اتمسحت واتطردت!
                 if (myName !== "" && data.players && !data.players.includes(myName)) {
                     db.ref('rooms/' + roomCode).off();
                     db.ref('chats/' + roomCode).off();
@@ -350,8 +360,6 @@
                 const listElement = document.getElementById('playerList'); listElement.innerHTML = "";
                 data.players.forEach(p => {
                     const li = document.createElement('li');
-                    
-                    // لو أدمن، بيظهر زرار الطرد جنب كل لاعب غير نفسه
                     if (isAdmin && p !== myName) {
                         li.innerHTML = `<span>${p}</span> <button class="kick-btn" onclick="kickPlayer('${p}')">طرد ❌</button>`;
                     } else {
@@ -411,24 +419,36 @@
                 const totalVoted = Object.keys(currentVotes).length;
                 const totalPlayersCount = data.players.length;
 
-                // ⚖️ تعديل سكيب التصويت (الشرط: تصويت الأغلبية)
-                // الأغلبية تعني تخطي نصف عدد اللاعبين المتواجدين بالكامل
-                const majorityRequired = Math.floor(totalPlayersCount / 2) + 1;
-                
-                document.getElementById('votingStatus').innerText = `الأصوات: ${totalVoted} من أصل ${totalPlayersCount} (مطلوب ${majorityRequired} لإعلان النتيجة)`;
+                document.getElementById('votingStatus').innerText = `الأصوات المجموعة حتى الآن: ${totalVoted} من أصل ${totalPlayersCount}`;
 
                 data.players.forEach(p => {
                     const btn = document.createElement('button');
                     btn.className = "vote-btn" + (currentVotes[myName] === p ? " voted" : "");
                     btn.innerText = `${p} (${getVoteCount(currentVotes, p)} صوت)`;
-                    btn.onclick = () => castVote(p);
+                    
+                    // لو الأدمن كشف النتيجة خلاص، بنقفل أزرار التصويت
+                    if(data.truthRevealed) {
+                        btn.disabled = true;
+                    } else {
+                        btn.onclick = () => castVote(p);
+                    }
                     voteGrid.appendChild(btn);
                 });
 
-                // لو الأصوات جابت الأغلبية، بنحسب النتيجة فوراً من غير انتظار الباقي!
-                if (totalVoted >= majorityRequired) {
-                    document.getElementById('votingStatus').innerText = "🎉 تم الوصول لتصويت الأغلبية! إليكم النتيجة الحالية:";
+                // التحكم في ظهور زر كشف الحقيقة للأدمن
+                if (isAdmin && !data.truthRevealed) {
+                    document.getElementById('revealTruthBtn').style.display = 'block';
+                } else {
+                    document.getElementById('revealTruthBtn').style.display = 'none';
+                }
+
+                // لو الأدمن ضغط على الزر وخلى المتغير true، بتتحسب وتظهر النتيجة فوراً للجميع
+                if (data.truthRevealed) {
+                    document.getElementById('votingStatus').innerText = "👁️ قام الأدمن بإنهاء التصويت وكشف الحقيقة!";
                     calculateFinalWinner(data);
+                } else {
+                    document.getElementById('finalResultBox').style.display = "none";
+                    document.getElementById('btnReset').style.display = "none";
                 }
             }
         }
@@ -451,7 +471,7 @@
 
                 db.ref('rooms/' + roomCode).update({
                     status: "phase1", category: randomCategory, word: secretWord,
-                    impostors: impostors, qIndex: 0, votes: {}
+                    impostors: impostors, qIndex: 0, votes: {}, truthRevealed: false
                 }).then(() => {
                     sendSystemMessage("🔔 بدأت اللعبة الحين! اقرأوا أدواركم سراً في المرحلة 1.");
                 });
@@ -487,8 +507,8 @@
 
         function startPhase3() { 
             if(isAdmin) {
-                db.ref('rooms/' + roomCode).update({ status: "phase3" }).then(() => {
-                    sendSystemMessage("🛑 انتقلنا للمرحلة 3: بدأ التصويت العلني النهائي! النتيجة تظهر بمجرد تصويت الأغلبية.");
+                db.ref('rooms/' + roomCode).update({ status: "phase3", truthRevealed: false }).then(() => {
+                    sendSystemMessage("🛑 انتقلنا للمرحلة 3: بدأ التصويت العلني! صوتوا براحتكم والأدمن هيكشف النتيجة لما يقرر.");
                 });
             } 
         }
@@ -501,23 +521,43 @@
             return Object.values(votes).filter(v => v === player).length;
         }
 
+        // دالة حصرية للأدمن لتفعيل كشف الحقيقة براحته
+        function triggerRevealTruth() {
+            if (!isAdmin) return;
+            db.ref('rooms/' + roomCode).update({ truthRevealed: true }).then(() => {
+                sendSystemMessage("👁️ الأدمن قرر إيقاف التصويت وكشف الحقيقة الحين!");
+            });
+        }
+
         function calculateFinalWinner(data) {
-            const votes = data.votes;
+            const votes = data.votes || {};
             const voteCounts = {};
             data.players.forEach(p => voteCounts[p] = 0);
             Object.values(votes).forEach(target => voteCounts[target] = (voteCounts[target] || 0) + 1);
 
             let maxVotes = -1; let votedOut = "";
+            let hasVotes = false;
+            
             for (let p in voteCounts) {
+                if (voteCounts[p] > 0) hasVotes = true;
                 if (voteCounts[p] > maxVotes) { maxVotes = voteCounts[p]; votedOut = p; }
             }
 
             const resultBox = document.getElementById('finalResultBox');
             resultBox.style.display = "block";
             
+            // لو محدش صوت خالص وضغط الأدمن كشف
+            if (!hasVotes) {
+                resultBox.innerText = ` 🤔 الأدمن كشف النتيجة ومحدش صوت على حد!\n\nاللي كانوا برا السالفة هم: [ ${data.impostors.join(' و ')} ]`;
+                resultBox.style.backgroundColor = "rgba(234, 179, 8, 0.2)";
+                resultBox.style.color = "var(--warning-gold)";
+                if(isAdmin) document.getElementById('btnReset').style.display = "block";
+                return;
+            }
+
             const impostorsList = data.impostors.join(' و ');
             if (data.impostors.includes(votedOut)) {
-                resultBox.innerText = `👑 كفووو! قفشتوا الشخص الصح وتم طرد: [ ${votedOut} ] وهو فعلاً برا السالفة!\n\n فاز اللاعبون الحقيقيون! 🎉`;
+                resultBox.innerText = `👑 كفووو! قفشتوا الشخص الصح وتم اختيار: [ ${votedOut} ] وهو فعلاً برا السالفة!\n\n فاز اللاعبون الحقيقيون! 🎉`;
                 resultBox.style.backgroundColor = "rgba(34, 197, 94, 0.2)";
                 resultBox.style.color = "var(--success-green)";
             } else {
@@ -532,7 +572,7 @@
         function resetGame() {
             if(!isAdmin) return;
             db.ref('rooms/' + roomCode).update({
-                status: "lobby", impostors: [], category: "", word: "", qIndex: 0, votes: {}
+                status: "lobby", impostors: [], category: "", word: "", qIndex: 0, votes: {}, truthRevealed: false
             });
             db.ref('chats/' + roomCode).remove();
             document.getElementById('finalResultBox').style.display = "none";
