@@ -38,7 +38,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
             position: relative;
             overflow-x: hidden;
         }
@@ -53,8 +53,9 @@
         }
         @keyframes moveGrid { 0% { transform: translate(0, 0); } 100% { transform: translate(-30px, -30px); } }
 
+        /* 🔹 تكبير حجم الـ Container الأساسي للعبة */
         .container {
-            width: 100%; max-width: 600px; background: var(--panel-bg); backdrop-filter: blur(12px);
+            width: 100%; max-width: 650px; background: var(--panel-bg); backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px); padding: 30px 20px; border-radius: 20px;
             border: 1px solid var(--border-color); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
             text-align: center; position: relative; z-index: 2;
@@ -90,14 +91,16 @@
         .vote-btn { background: rgba(0,0,0,0.6); color: white; border: 1px solid var(--border-color); padding: 12px; font-size: 14px; border-radius: 8px; }
         .vote-btn.voted { background: var(--warning-gold); color: black; border-color: var(--warning-gold); }
 
-        /* 💬 نظام الشات المطور والكبير */
+        /* 💬 نظام الشات العملاق والمطور (زي الواتساب) */
         .chat-container {
             margin-top: 30px; border: 2px solid var(--border-color); border-radius: 14px;
             background: rgba(5, 5, 5, 0.95); text-align: right; display: flex; flex-direction: column; overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .chat-header { background: rgba(255,255,255,0.05); padding: 14px 18px; font-size: 16px; color: var(--text-light); font-weight: bold; border-bottom: 2px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-        .chat-messages { padding: 18px; max-height: 280px; min-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.3); }
+        
+        /* 🚨 تكبير مساحة عرض الرسائل لتستوعب كمية ضخمة من المحادثات */
+        .chat-messages { padding: 18px; max-height: 400px; min-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.3); }
         
         .msg { padding: 12px 16px; border-radius: 10px; max-width: 85%; font-size: 15px; line-height: 1.5; word-wrap: break-word; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .msg.my { background: var(--chat-my-msg); align-self: flex-start; border-left: 4px solid var(--accent-white); }
@@ -187,7 +190,7 @@
             <button id="btnReset" class="secondary-btn" style="display:none; margin-top: 15px;">العودة للروم الأساسية</button>
         </div>
 
-        <!-- 💬 نظام الشات المشترك المطور والكبير -->
+        <!-- 💬 نظام الشات المشترك المطور والعملاق -->
         <div id="globalChat" class="chat-container" style="display:none;">
             <div class="chat-header">
                 <span>💬 شات الروم اللايف - قفش وشكوك</span>
@@ -195,7 +198,8 @@
             </div>
             <div id="chatMessages" class="chat-messages"></div>
             <div class="chat-input-area">
-                <input type="text" id="chatInput" placeholder="اكتب رسالتك أو شكوكك هنا للكل...">
+                <!-- إضافة منع قفل الكيبورد عند الضغط على Enter -->
+                <input type="text" id="chatInput" placeholder="اكتب رسالتك هنا..." autocomplete="off">
                 <button id="sendMsgBtn">إرسال</button>
             </div>
         </div>
@@ -237,8 +241,16 @@
         document.getElementById('goToPhase3Btn').onclick = startPhase3;
         document.getElementById('revealTruthBtn').onclick = triggerRevealTruth;
         document.getElementById('btnReset').onclick = resetGame;
+        
+        // تعديل مستمع زر الإرسال والـ Enter لمنع نزول الكيبورد
+        document.getElementById('sendMsgBtn').onmousedown = function(e) { e.preventDefault(); sendChatMessage(); };
         document.getElementById('sendMsgBtn').onclick = sendChatMessage;
-        document.getElementById('chatInput').addEventListener('keypress', function(e) { if(e.key === 'Enter') sendChatMessage(); });
+        document.getElementById('chatInput').addEventListener('keypress', function(e) { 
+            if(e.key === 'Enter') { 
+                e.preventDefault(); 
+                sendChatMessage(); 
+            } 
+        });
 
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -334,6 +346,7 @@
             });
         }
 
+        // دالة إرسال الرسالة مع الحفاظ على الفوكس مفتوحاً للكيبورد (ميزة تجربة الواتساب)
         function sendChatMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
@@ -341,6 +354,11 @@
 
             db.ref('chats/' + roomCode).push({ sender: myName, text: text, timestamp: Date.now() });
             input.value = "";
+            
+            // 🎯 السحر هنا: يرجع الفوكس فوراً على الـ Input عشان الكيبورد ما يقفلش
+            setTimeout(() => {
+                input.focus();
+            }, 10);
         }
 
         function sendSystemMessage(systemText) {
@@ -426,7 +444,6 @@
                     btn.className = "vote-btn" + (currentVotes[myName] === p ? " voted" : "");
                     btn.innerText = `${p} (${getVoteCount(currentVotes, p)} صوت)`;
                     
-                    // لو الأدمن كشف النتيجة خلاص، بنقفل أزرار التصويت
                     if(data.truthRevealed) {
                         btn.disabled = true;
                     } else {
@@ -435,14 +452,12 @@
                     voteGrid.appendChild(btn);
                 });
 
-                // التحكم في ظهور زر كشف الحقيقة للأدمن
                 if (isAdmin && !data.truthRevealed) {
                     document.getElementById('revealTruthBtn').style.display = 'block';
                 } else {
                     document.getElementById('revealTruthBtn').style.display = 'none';
                 }
 
-                // لو الأدمن ضغط على الزر وخلى المتغير true، بتتحسب وتظهر النتيجة فوراً للجميع
                 if (data.truthRevealed) {
                     document.getElementById('votingStatus').innerText = "👁️ قام الأدمن بإنهاء التصويت وكشف الحقيقة!";
                     calculateFinalWinner(data);
@@ -521,7 +536,6 @@
             return Object.values(votes).filter(v => v === player).length;
         }
 
-        // دالة حصرية للأدمن لتفعيل كشف الحقيقة براحته
         function triggerRevealTruth() {
             if (!isAdmin) return;
             db.ref('rooms/' + roomCode).update({ truthRevealed: true }).then(() => {
@@ -546,7 +560,6 @@
             const resultBox = document.getElementById('finalResultBox');
             resultBox.style.display = "block";
             
-            // لو محدش صوت خالص وضغط الأدمن كشف
             if (!hasVotes) {
                 resultBox.innerText = ` 🤔 الأدمن كشف النتيجة ومحدش صوت على حد!\n\nاللي كانوا برا السالفة هم: [ ${data.impostors.join(' و ')} ]`;
                 resultBox.style.backgroundColor = "rgba(234, 179, 8, 0.2)";
