@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برا السالفة المطور - مؤمن يوسف</title>
+    <title>برا السالفة المطور - تحكم الأدمن الكامل - مؤمن يوسف</title>
     
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -19,6 +19,8 @@
             --danger-red: #ff3333;
             --success-green: #22c55e;
             --warning-gold: #eab308;
+            --chat-my-msg: #2e2e2e;
+            --chat-other-msg: #1a1a1a;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,15 +54,15 @@
         @keyframes moveGrid { 0% { transform: translate(0, 0); } 100% { transform: translate(-30px, -30px); } }
 
         .container {
-            width: 100%; max-width: 520px; background: var(--panel-bg); backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); padding: 35px 25px; border-radius: 20px;
+            width: 100%; max-width: 550px; background: var(--panel-bg); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); padding: 30px 20px; border-radius: 20px;
             border: 1px solid var(--border-color); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
             text-align: center; position: relative; z-index: 2;
         }
 
-        h1 { font-size: 28px; font-weight: 800; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        h1 { font-size: 28px; font-weight: 800; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
         h3 { font-size: 16px; color: var(--text-muted); margin-bottom: 15px; font-weight: 500; }
-        input { width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 10px; background: rgba(0, 0, 0, 0.7); color: var(--text-light); font-size: 16px; text-align: center; outline: none; }
+        input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 10px; background: rgba(0, 0, 0, 0.7); color: var(--text-light); font-size: 16px; text-align: center; outline: none; }
         input:focus { border-color: var(--accent-white); }
         
         button { width: 100%; background-color: var(--accent-white); color: #000000; border: none; padding: 14px; font-size: 16px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 12px; }
@@ -72,19 +74,40 @@
         .screen.active { display: block; }
 
         .code-display { font-size: 36px; font-weight: 900; background: rgba(255, 255, 255, 0.03); padding: 10px 20px; border-radius: 12px; border: 1px dashed var(--border-color); display: inline-block; margin: 15px 0; letter-spacing: 4px; }
-        .player-list { list-style: none; margin: 20px 0; text-align: right; max-height: 180px; overflow-y: auto; }
-        .player-list li { background: rgba(0, 0, 0, 0.5); padding: 12px 15px; margin-bottom: 8px; border-radius: 8px; border-right: 4px solid var(--accent-white); font-size: 15px; display: flex; justify-content: space-between; }
+        .player-list { list-style: none; margin: 20px 0; text-align: right; max-height: 150px; overflow-y: auto; }
+        .player-list li { background: rgba(0, 0, 0, 0.5); padding: 12px 15px; margin-bottom: 8px; border-radius: 8px; border-right: 4px solid var(--accent-white); font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
         
-        .phase-badge { background: var(--warning-gold); color: #000; padding: 5px 15px; border-radius: 20px; font-weight: 700; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+        .kick-btn { background: var(--danger-red); color: white; border: none; padding: 4px 10px; font-size: 12px; border-radius: 5px; cursor: pointer; width: auto; margin: 0; }
+        .kick-btn:hover { background: #cc0000; transform: none; }
+
+        .phase-badge { background: var(--warning-gold); color: #000; padding: 5px 15px; border-radius: 20px; font-weight: 700; font-size: 14px; display: inline-block; margin-bottom: 15px; }
         .secret-box { background: var(--accent-white); color: #000000; padding: 25px 20px; border-radius: 12px; font-size: 24px; font-weight: 800; margin: 20px 0; }
         .info-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin: 15px 0; font-size: 15px; }
         
-        .vote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .vote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
         .vote-btn { background: rgba(0,0,0,0.6); color: white; border: 1px solid var(--border-color); padding: 12px; font-size: 14px; border-radius: 8px; }
-        .vote-btn:hover { background: rgba(255,255,255,0.1); }
         .vote-btn.voted { background: var(--warning-gold); color: black; border-color: var(--warning-gold); }
 
-        .footer { margin-top: 30px; font-size: 13px; color: var(--text-muted); z-index: 2; }
+        /* 💬 نظام الشات */
+        .chat-container {
+            margin-top: 25px; border: 1px solid var(--border-color); border-radius: 12px;
+            background: rgba(0, 0, 0, 0.6); text-align: right; display: flex; flex-direction: column; overflow: hidden;
+        }
+        .chat-header { background: rgba(255,255,255,0.03); padding: 10px 15px; font-size: 14px; color: var(--text-muted); font-weight: bold; border-bottom: 1px solid var(--border-color); }
+        .chat-messages { padding: 15px; max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        
+        .msg { padding: 8px 12px; border-radius: 8px; max-width: 85%; font-size: 14px; line-height: 1.4; word-wrap: break-word; }
+        .msg.my { background: var(--chat-my-msg); align-self: flex-start; border-left: 3px solid var(--accent-white); }
+        .msg.other { background: var(--chat-other-msg); align-self: flex-end; border-right: 3px solid var(--text-muted); }
+        .msg.system { background: rgba(234, 179, 8, 0.1); color: var(--warning-gold); align-self: center; text-align: center; font-size: 13px; max-width: 100%; width: 100%; border: 1px dashed rgba(234, 179, 8, 0.3); }
+        .msg-sender { font-weight: bold; font-size: 12px; color: var(--warning-gold); margin-bottom: 3px; display: block; }
+        .msg.my .msg-sender { color: #fff; }
+
+        .chat-input-area { display: flex; border-top: 1px solid var(--border-color); background: #000; }
+        .chat-input-area input { flex: 1; margin: 0; padding: 12px; background: transparent; border: none; text-align: right; font-size: 14px; color: white; }
+        .chat-input-area button { width: auto; margin: 0; padding: 0 20px; border-radius: 0; background: var(--accent-white); color: black; font-size: 14px; }
+
+        .footer { margin-top: 25px; font-size: 13px; color: var(--text-muted); z-index: 2; }
         .footer strong { color: var(--text-light); }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
@@ -122,7 +145,7 @@
             <div id="roomCodeDisplay" class="code-display"></div>
             <h3>اللاعبين المتواجدين (<span id="playerCount">0</span>)</h3>
             <ul id="playerList" class="player-list"></ul>
-            <button id="startGameBtn" style="display:none;">توزيع الأدوار وبدء المرحلة 1 🚀</button>
+            <button id="startGameBtn" style="display:none;">توزيع الأدوار وبدء اللعبة 🚀</button>
             <p id="waitingMessage" style="color: var(--text-muted);">بإنتظار مؤسس الغرفة ليبدأ اللعبة...</p>
         </div>
 
@@ -140,10 +163,9 @@
         <!-- المرحلة 2: الأسئلة والشك -->
         <div id="phase2Screen" class="screen">
             <div class="phase-badge" style="background: var(--accent-white); color: #000;">المرحلة 2: الأسئلة والشك 💬</div>
-            <div class="info-card" id="questionTurnDisplay" style="border: 2px solid var(--warning-gold); font-size: 18px; font-weight: bold;">
+            <div class="info-card" id="questionTurnDisplay" style="border: 2px solid var(--warning-gold); font-size: 17px; font-weight: bold;">
                 جاري تحديد الدور...
             </div>
-            <p style="color: var(--text-muted); margin-bottom: 25px;">الكل يقدر يتكلم ويناقش عادي في الجروب أثناء السؤال والجواب الحين!</p>
             <button id="nextQuestionBtn" style="display:none;">السؤال التالي ↩️</button>
             <button id="goToPhase3Btn" style="display:none; background-color: var(--danger-red); color: white;">الانتقال للتصويت العلني 🛑</button>
         </div>
@@ -154,9 +176,20 @@
             <h3>مين الحرامي اللي برا السالفة؟ صوتوا الحين!</h3>
             <div id="voteGridDisplay" class="vote-grid"></div>
             <div id="votingStatus" class="info-card">جاري جمع الأصوات...</div>
-            <div id="finalResultBox" class="secret-box" style="display:none; font-size: 20px; padding: 20px;"></div>
+            <div id="finalResultBox" class="secret-box" style="display:none; font-size: 18px; padding: 20px;"></div>
             <button id="btnReset" class="secondary-btn" style="display:none; margin-top: 15px;">العودة للروم الأساسية</button>
         </div>
+
+        <!-- 💬 الشات المشترك الموحد -->
+        <div id="globalChat" class="chat-container" style="display:none;">
+            <div class="chat-header">💬 شات الروم اللايف - قفش وشكوك</div>
+            <div id="chatMessages" class="chat-messages"></div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="اكتب رسالتك أو شكوكك هنا...">
+                <button id="sendMsgBtn">إرسال</button>
+            </div>
+        </div>
+
     </div>
 
     <div class="footer">تم التطوير بواسطة المطور <strong>مؤمن يوسف</strong></div>
@@ -193,6 +226,8 @@
         document.getElementById('nextQuestionBtn').onclick = nextQuestion;
         document.getElementById('goToPhase3Btn').onclick = startPhase3;
         document.getElementById('btnReset').onclick = resetGame;
+        document.getElementById('sendMsgBtn').onclick = sendChatMessage;
+        document.getElementById('chatInput').addEventListener('keypress', function(e) { if(e.key === 'Enter') sendChatMessage(); });
 
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -208,7 +243,7 @@
                 admin: myName, status: "lobby", players: [myName],
                 impostors: [], category: "", word: "", qIndex: 0, votes: {}
             }).then(() => {
-                listenToRoom(); showScreen('lobbyScreen');
+                listenToRoom(); listenToChat(); showScreen('lobbyScreen');
                 document.getElementById('startGameBtn').style.display = 'block';
                 document.getElementById('waitingMessage').style.display = 'none';
             });
@@ -227,7 +262,7 @@
                     if(!currentPlayers.includes(myName)) currentPlayers.push(myName);
 
                     db.ref('rooms/' + roomCode).update({ players: currentPlayers }).then(() => {
-                        isAdmin = false; listenToRoom(); showScreen('lobbyScreen');
+                        isAdmin = false; listenToRoom(); listenToChat(); showScreen('lobbyScreen');
                     });
                 } else { alert("الغرفة مش موجودة!"); }
             });
@@ -236,18 +271,92 @@
         function listenToRoom() {
             db.ref('rooms/' + roomCode).on('value', (snapshot) => {
                 const data = snapshot.val(); if (!data) return;
+
+                // 🛑 نظام الطرد: لو اسمي مابقاش موجود في مصفوفة اللاعبين، يعني اتمسحت واتطردت!
+                if (myName !== "" && data.players && !data.players.includes(myName)) {
+                    db.ref('rooms/' + roomCode).off();
+                    db.ref('chats/' + roomCode).off();
+                    alert("لقد تم طردك من الغرفة بواسطة الأدمن! 🚷");
+                    myName = ""; roomCode = ""; isAdmin = false;
+                    showScreen('homeScreen');
+                    document.getElementById('globalChat').style.display = 'none';
+                    return;
+                }
+
                 renderRoom(data);
             });
         }
 
+        function kickPlayer(playerToKick) {
+            if(!isAdmin) return;
+            if(playerToKick === myName) return alert("ما ينفعش تطرد نفسك يا هندسة!");
+            
+            db.ref('rooms/' + roomCode).once('value').then(snap => {
+                let data = snap.val();
+                let currentPlayers = data.players || [];
+                let updatedPlayers = currentPlayers.filter(p => p !== playerToKick);
+                
+                db.ref('rooms/' + roomCode).update({ players: updatedPlayers }).then(() => {
+                    sendSystemMessage(`🚷 نظام الطرد: قام الأدمن بطرد اللاعب [ ${playerToKick} ] من الروم.`);
+                });
+            });
+        }
+
+        function listenToChat() {
+            db.ref('chats/' + roomCode).on('value', (snapshot) => {
+                const chatBox = document.getElementById('chatMessages');
+                chatBox.innerHTML = "";
+                const messages = snapshot.val();
+                if (messages) {
+                    Object.values(messages).forEach(m => {
+                        const div = document.createElement('div');
+                        if (m.sender === "SYSTEM") {
+                            div.className = "msg system";
+                            div.innerText = m.text;
+                        } else {
+                            div.className = "msg " + (m.sender === myName ? "my" : "other");
+                            div.innerHTML = `<span class="msg-sender">${m.sender}</span>${m.text}`;
+                        }
+                        chatBox.appendChild(div);
+                    });
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+            });
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if(!text) return;
+
+            db.ref('chats/' + roomCode).push({ sender: myName, text: text, timestamp: Date.now() });
+            input.value = "";
+        }
+
+        function sendSystemMessage(systemText) {
+            db.ref('chats/' + roomCode).push({ sender: "SYSTEM", text: systemText, timestamp: Date.now() });
+        }
+
         function renderRoom(data) {
-            // الشاشات العامة والديناميكية بناء على الحالة
+            if (data.status === "lobby" || data.status === "phase1") {
+                document.getElementById('globalChat').style.display = 'none';
+            } else {
+                document.getElementById('globalChat').style.display = 'flex';
+            }
+
             if (data.status === "lobby") {
                 document.getElementById('roomCodeDisplay').innerText = roomCode;
                 document.getElementById('playerCount').innerText = data.players.length;
                 const listElement = document.getElementById('playerList'); listElement.innerHTML = "";
                 data.players.forEach(p => {
-                    const li = document.createElement('li'); li.innerText = p + (p === data.admin ? " 👑" : "");
+                    const li = document.createElement('li');
+                    
+                    // لو أدمن، بيظهر زرار الطرد جنب كل لاعب غير نفسه
+                    if (isAdmin && p !== myName) {
+                        li.innerHTML = `<span>${p}</span> <button class="kick-btn" onclick="kickPlayer('${p}')">طرد ❌</button>`;
+                    } else {
+                        li.innerText = p + (p === data.admin ? " 👑" : "");
+                    }
                     listElement.appendChild(li);
                 });
                 showScreen('lobbyScreen');
@@ -300,8 +409,13 @@
                 const voteGrid = document.getElementById('voteGridDisplay'); voteGrid.innerHTML = "";
                 const currentVotes = data.votes || {};
                 const totalVoted = Object.keys(currentVotes).length;
+                const totalPlayersCount = data.players.length;
+
+                // ⚖️ تعديل سكيب التصويت (الشرط: تصويت الأغلبية)
+                // الأغلبية تعني تخطي نصف عدد اللاعبين المتواجدين بالكامل
+                const majorityRequired = Math.floor(totalPlayersCount / 2) + 1;
                 
-                document.getElementById('votingStatus').innerText = `الأصوات المجمعة حتى الآن: ${totalVoted} من أصل ${data.players.length}`;
+                document.getElementById('votingStatus').innerText = `الأصوات: ${totalVoted} من أصل ${totalPlayersCount} (مطلوب ${majorityRequired} لإعلان النتيجة)`;
 
                 data.players.forEach(p => {
                     const btn = document.createElement('button');
@@ -311,8 +425,9 @@
                     voteGrid.appendChild(btn);
                 });
 
-                if (totalVoted >= data.players.length) {
-                    document.getElementById('votingStatus').innerText = "🎉 اكتمل التصويت العلني! إليكم النتيجة:";
+                // لو الأصوات جابت الأغلبية، بنحسب النتيجة فوراً من غير انتظار الباقي!
+                if (totalVoted >= majorityRequired) {
+                    document.getElementById('votingStatus').innerText = "🎉 تم الوصول لتصويت الأغلبية! إليكم النتيجة الحالية:";
                     calculateFinalWinner(data);
                 }
             }
@@ -328,26 +443,55 @@
                 const randomCategory = categories[Math.floor(Math.random() * categories.length)];
                 const secretWord = databaseWords[randomCategory][Math.floor(Math.random() * databaseWords[randomCategory].length)];
 
-                // تعديل: لو العدد 7 فما فوق يكون 2 برا السالفة تلقائياً
                 let impCount = count >= 7 ? 2 : 1;
                 let shuffled = [...players].sort(() => 0.5 - Math.random());
                 let impostors = shuffled.slice(0, impCount);
 
+                db.ref('chats/' + roomCode).remove();
+
                 db.ref('rooms/' + roomCode).update({
                     status: "phase1", category: randomCategory, word: secretWord,
                     impostors: impostors, qIndex: 0, votes: {}
+                }).then(() => {
+                    sendSystemMessage("🔔 بدأت اللعبة الحين! اقرأوا أدواركم سراً في المرحلة 1.");
                 });
             });
         }
 
-        function startPhase2() { if(isAdmin) db.ref('rooms/' + roomCode).update({ status: "phase2" }); }
+        function startPhase2() { 
+            if(isAdmin) {
+                db.ref('rooms/' + roomCode).update({ status: "phase2" }).then(() => {
+                    sendSystemMessage("💬 تم الانتقال للمرحلة 2: بدأت جولة الأسئلة، ناقشوا وشكوا في بعض بالشات الحين!");
+                    announceQuestionTurn();
+                });
+            } 
+        }
+
+        function announceQuestionTurn() {
+            db.ref('rooms/' + roomCode).once('value').then(snap => {
+                const data = snap.val(); const total = data.players.length;
+                if(data.qIndex < total) {
+                    let asker = data.players[data.qIndex]; let receiver = data.players[(data.qIndex + 1) % total];
+                    sendSystemMessage(`📢 البوت: جاء الدور على [ ${asker} ] ليوجه سؤالاً لـ [ ${receiver} ]!`);
+                }
+            });
+        }
+
         function nextQuestion() {
             if(!isAdmin) return;
             db.ref('rooms/' + roomCode).once('value').then(snap => {
-                db.ref('rooms/' + roomCode).update({ qIndex: snap.val().qIndex + 1 });
+                const nextIdx = snap.val().qIndex + 1;
+                db.ref('rooms/' + roomCode).update({ qIndex: nextIdx }).then(() => { announceQuestionTurn(); });
             });
         }
-        function startPhase3() { if(isAdmin) db.ref('rooms/' + roomCode).update({ status: "phase3" }); }
+
+        function startPhase3() { 
+            if(isAdmin) {
+                db.ref('rooms/' + roomCode).update({ status: "phase3" }).then(() => {
+                    sendSystemMessage("🛑 انتقلنا للمرحلة 3: بدأ التصويت العلني النهائي! النتيجة تظهر بمجرد تصويت الأغلبية.");
+                });
+            } 
+        }
 
         function castVote(targetPlayer) {
             db.ref(`rooms/${roomCode}/votes/${myName}`).set(targetPlayer);
@@ -371,7 +515,6 @@
             const resultBox = document.getElementById('finalResultBox');
             resultBox.style.display = "block";
             
-            // التحقق من النتيجة علناً
             const impostorsList = data.impostors.join(' و ');
             if (data.impostors.includes(votedOut)) {
                 resultBox.innerText = `👑 كفووو! قفشتوا الشخص الصح وتم طرد: [ ${votedOut} ] وهو فعلاً برا السالفة!\n\n فاز اللاعبون الحقيقيون! 🎉`;
@@ -391,6 +534,7 @@
             db.ref('rooms/' + roomCode).update({
                 status: "lobby", impostors: [], category: "", word: "", qIndex: 0, votes: {}
             });
+            db.ref('chats/' + roomCode).remove();
             document.getElementById('finalResultBox').style.display = "none";
             document.getElementById('btnReset').style.display = "none";
         }
