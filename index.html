@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برا السالفة - المطور مؤمن يوسف</title>
+    <title>برا السالفة المطور - مؤمن يوسف</title>
     
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -17,13 +17,11 @@
             --border-color: #262626;
             --accent-white: #ffffff;
             --danger-red: #ff3333;
+            --success-green: #22c55e;
+            --warning-gold: #eab308;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -43,169 +41,51 @@
             overflow-x: hidden;
         }
 
-        /* 🌌 الزخرفة الشبكية المتحركة الشفافة */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
+            content: ""; position: fixed; top: 0; left: 0; width: 200%; height: 200%;
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            z-index: 1;
-            pointer-events: none;
+            background-size: 30px 30px; z-index: 1; pointer-events: none;
             animation: moveGrid 20s linear infinite;
         }
-
-        @keyframes moveGrid {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-30px, -30px); }
-        }
+        @keyframes moveGrid { 0% { transform: translate(0, 0); } 100% { transform: translate(-30px, -30px); } }
 
         .container {
-            width: 100%;
-            max-width: 500px;
-            background: var(--panel-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
-            text-align: center;
-            position: relative;
-            z-index: 2;
+            width: 100%; max-width: 520px; background: var(--panel-bg); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); padding: 35px 25px; border-radius: 20px;
+            border: 1px solid var(--border-color); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+            text-align: center; position: relative; z-index: 2;
         }
 
-        h1 {
-            font-size: 30px;
-            font-weight: 800;
-            margin-bottom: 35px;
-            color: var(--text-light);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        h3 {
-            font-size: 17px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--text-light);
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            border-color: var(--accent-white);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-
-        button {
-            width: 100%;
-            background-color: var(--accent-white);
-            color: #000000;
-            border: none;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 12px;
-        }
-
-        button:hover {
-            background-color: #dddddd;
-            transform: translateY(-2px);
-        }
-
-        button.secondary-btn {
-            background-color: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--border-color);
-        }
-
-        button.secondary-btn:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-color: var(--accent-white);
-        }
-
-        button.start-btn {
-            background-color: var(--accent-white);
-            color: #000000;
-            display: none;
-            margin-top: 20px;
-        }
-
+        h1 { font-size: 28px; font-weight: 800; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        h3 { font-size: 16px; color: var(--text-muted); margin-bottom: 15px; font-weight: 500; }
+        input { width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 10px; background: rgba(0, 0, 0, 0.7); color: var(--text-light); font-size: 16px; text-align: center; outline: none; }
+        input:focus { border-color: var(--accent-white); }
+        
+        button { width: 100%; background-color: var(--accent-white); color: #000000; border: none; padding: 14px; font-size: 16px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 12px; }
+        button:hover { background-color: #dddddd; transform: translateY(-2px); }
+        button.secondary-btn { background-color: transparent; color: var(--text-light); border: 1px solid var(--border-color); }
+        button.secondary-btn:hover { background-color: rgba(255, 255, 255, 0.05); border-color: var(--accent-white); }
+        
         .screen { display: none; }
         .screen.active { display: block; }
 
-        .code-display {
-            font-size: 36px;
-            font-weight: 900;
-            color: var(--text-light);
-            background: rgba(255, 255, 255, 0.03);
-            padding: 15px 25px;
-            border-radius: 12px;
-            border: 1px dashed var(--border-color);
-            display: inline-block;
-            margin: 20px 0;
-            letter-spacing: 4px;
-        }
+        .code-display { font-size: 36px; font-weight: 900; background: rgba(255, 255, 255, 0.03); padding: 10px 20px; border-radius: 12px; border: 1px dashed var(--border-color); display: inline-block; margin: 15px 0; letter-spacing: 4px; }
+        .player-list { list-style: none; margin: 20px 0; text-align: right; max-height: 180px; overflow-y: auto; }
+        .player-list li { background: rgba(0, 0, 0, 0.5); padding: 12px 15px; margin-bottom: 8px; border-radius: 8px; border-right: 4px solid var(--accent-white); font-size: 15px; display: flex; justify-content: space-between; }
+        
+        .phase-badge { background: var(--warning-gold); color: #000; padding: 5px 15px; border-radius: 20px; font-weight: 700; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+        .secret-box { background: var(--accent-white); color: #000000; padding: 25px 20px; border-radius: 12px; font-size: 24px; font-weight: 800; margin: 20px 0; }
+        .info-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin: 15px 0; font-size: 15px; }
+        
+        .vote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .vote-btn { background: rgba(0,0,0,0.6); color: white; border: 1px solid var(--border-color); padding: 12px; font-size: 14px; border-radius: 8px; }
+        .vote-btn:hover { background: rgba(255,255,255,0.1); }
+        .vote-btn.voted { background: var(--warning-gold); color: black; border-color: var(--warning-gold); }
 
-        .player-list {
-            list-style: none;
-            margin: 25px 0;
-            text-align: right;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .player-list li {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 12px 20px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            border-right: 4px solid var(--accent-white);
-            font-size: 15px;
-        }
-
-        .secret-box {
-            background: var(--accent-white);
-            color: #000000;
-            padding: 30px 20px;
-            border-radius: 12px;
-            font-size: 26px;
-            font-weight: 800;
-            margin: 30px 0;
-        }
-
-        .footer {
-            margin-top: 30px;
-            font-size: 13px;
-            color: var(--text-muted);
-            z-index: 2;
-        }
-
-        .footer strong {
-            color: var(--text-light);
-        }
-
+        .footer { margin-top: 30px; font-size: 13px; color: var(--text-muted); z-index: 2; }
+        .footer strong { color: var(--text-light); }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
     </style>
@@ -215,6 +95,7 @@
     <div class="container">
         <h1>برا السالفة</h1>
 
+        <!-- الشاشات -->
         <div id="homeScreen" class="screen active">
             <button onclick="showScreen('createScreen')">إنشاء غرفة جديدة</button>
             <button onclick="showScreen('joinScreen')" class="secondary-btn">انضمام إلى غرفة</button>
@@ -235,30 +116,52 @@
             <button onclick="showScreen('homeScreen')" class="secondary-btn">رجوع</button>
         </div>
 
+        <!-- شاشة الانتظار -->
         <div id="lobbyScreen" class="screen">
             <h3>غرفة رقم</h3>
             <div id="roomCodeDisplay" class="code-display"></div>
             <h3>اللاعبين المتواجدين (<span id="playerCount">0</span>)</h3>
             <ul id="playerList" class="player-list"></ul>
-            
-            <button id="startGameBtn" class="start-btn">ابدأ اللعبة 🚀</button>
-            <p id="waitingMessage" style="color: var(--text-muted); margin-top: 15px;">بإنتظار مؤسس الغرفة يبدأ اللعبة...</p>
+            <button id="startGameBtn" style="display:none;">توزيع الأدوار وبدء المرحلة 1 🚀</button>
+            <p id="waitingMessage" style="color: var(--text-muted);">بإنتظار مؤسس الغرفة ليبدأ اللعبة...</p>
         </div>
 
-        <div id="gameScreen" class="screen">
-            <h2 id="categoryDisplay" style="margin-bottom: 10px; font-size: 20px; color: var(--text-muted);">فئة السالفة: </h2>
+        <!-- المرحلة 1: التوزيع ومعرفة السالفة -->
+        <div id="phase1Screen" class="screen">
+            <div class="phase-badge">المرحلة 1: توزيع الأدوار</div>
+            <div class="info-card" id="impostorCountDisplay" style="color: var(--warning-gold); font-weight: bold;"></div>
+            <h2 id="categoryDisplay" style="font-size: 18px; color: var(--text-muted);"></h2>
             <div id="secretDisplay" class="secret-box"></div>
-            <p style="color: var(--text-muted); margin-bottom: 25px;">تناقشوا وقفشوا مين اللي برا السالفة! 🧐</p>
-            <button id="btnReset" class="secondary-btn">العودة للغرفة</button>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">اقرأ دورك كويس وافهمه وماتوريهوش لحد!</p>
+            <button id="goToPhase2Btn" style="display:none;">الانتقال لمرحلة الأسئلة 💬</button>
+            <p id="p1AdminWait" style="color: var(--warning-gold); display:none;">بانتظار الأدمن ينقل اللعبة لمرحلة الأسئلة...</p>
+        </div>
+
+        <!-- المرحلة 2: الأسئلة والشك -->
+        <div id="phase2Screen" class="screen">
+            <div class="phase-badge" style="background: var(--accent-white); color: #000;">المرحلة 2: الأسئلة والشك 💬</div>
+            <div class="info-card" id="questionTurnDisplay" style="border: 2px solid var(--warning-gold); font-size: 18px; font-weight: bold;">
+                جاري تحديد الدور...
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">الكل يقدر يتكلم ويناقش عادي في الجروب أثناء السؤال والجواب الحين!</p>
+            <button id="nextQuestionBtn" style="display:none;">السؤال التالي ↩️</button>
+            <button id="goToPhase3Btn" style="display:none; background-color: var(--danger-red); color: white;">الانتقال للتصويت العلني 🛑</button>
+        </div>
+
+        <!-- المرحلة 3: التصويت والنتيجة -->
+        <div id="phase3Screen" class="screen">
+            <div class="phase-badge" style="background: var(--danger-red); color: #fff;">المرحلة 3: التصويت العلني 🛑</div>
+            <h3>مين الحرامي اللي برا السالفة؟ صوتوا الحين!</h3>
+            <div id="voteGridDisplay" class="vote-grid"></div>
+            <div id="votingStatus" class="info-card">جاري جمع الأصوات...</div>
+            <div id="finalResultBox" class="secret-box" style="display:none; font-size: 20px; padding: 20px;"></div>
+            <button id="btnReset" class="secondary-btn" style="display:none; margin-top: 15px;">العودة للروم الأساسية</button>
         </div>
     </div>
 
-    <div class="footer">
-        تم إنشاء الغرفة بواسطة المطور <strong>مؤمن يوسف</strong>
-    </div>
+    <div class="footer">تم التطوير بواسطة المطور <strong>مؤمن يوسف</strong></div>
 
     <script>
-        // دمج بيانات الـ Config الحقيقية والخاصة بمشروع مؤمن يوسف هنا مباشرة
         const firebaseConfig = {
             apiKey: "AIzaSyAdEzHyipaklEkr7QnV1jKu_GdrpwBZInk",
             authDomain: "barra-alsalfa.firebaseapp.com",
@@ -270,28 +173,28 @@
             measurementId: "G-1H41EGBG93"
         };
 
-        // تهيئة فايربيز أونلاين حقيقي الآن
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
         const databaseWords = {
-            "كورة": ["ريال مدريد", "برشلونة", "ميسي", "رونالدو", "صلاح", "تسلل", "ضربة جزاء", "حكم", "كأس العالم", "دوري الأبطال", "أوفسايد", "فاول", "كرت أحمر", "كرت أصفر", "حارس مرمى", "دفاع", "هجوم", "خط وسط", "مدرب", "شورت", "ستاد", "جمهور", "صفارة", "عارضة", "شباك", "كابتن", "ضربة ركنية", "وقت إضافي", "ركلات ترجيح", "كرة ذهبية", "هاتريك", "مانشستر سيتي", "ليفربول", "بايرن ميونخ", "الأهلي", "الزمالك", "الهلال", "النصر", "منتخب", "تغيير لاعب", "إصابة", "نقالة", "كوب الشاي للمحلل", "فار VAR", "رأسية", "مقصية", "تمريرة حاسمة", "مراوغة", "سوبر هاتريك", "شوط أول"],
-            "حيوانات": ["أسد", "نمر", "فهد", "فيل", "زرافة", "قرد", "غزال", "ثعلب", "ذئب", "دب", "أرنب", "سنجاب", "حصان", "حمار", "بقرة", "خروف", "ماعز", "جمل", "كلب", "قطة", "فأر", "خفاش", "دولفين", "حوت", "قرش", "أخطبوط", "تمساح", "ثعبان", "سلحفاة", "ضفدع", "بطريق", "نعامة", "صقر", "نسر", "بومة", "ببّغاء", "دجاجة", "بطة", "حمامة", "طاووس", "كانغرو", "كوالا", "باندا", "حيوان الكسلان", "قنفذ", "وحيد القرن", "سيد قشطة", "غوريلا", "شمبانزي", "سنجاب طائر"],
-            "ملابس": ["قميص", "بنطلون", "تيشرت", "جاكيت", "فستان", "تنورة", "بلوفر", "بدلة", "بيجامة", "عباءة", "معطف", "شورت", "شراب", "حذاء", "بوت", "صندل", "شبشب", "قبعة", "كاب", "كوفية", "قفازات", "وشاح", "كرافتة", "حزام", "ساعة يد", "نظارة شمسية", "ملابس رياضية", "بشت", "جلابية", "مايوه", "ملابس داخلية", "جاكيت جلد", "قميص جينز", "بنطلون قماش", "سويت شيرت", "هودي", "كارديجان", "بلوزة", "شال", "طرحة", "طاقية صوف", "إكسسوارات", "محفظة", "بروش", "أزرار أكمام", "بندانا", "حذاء رياضي", "مظلة", "شنطة ظهر", "جاكيت جينز"],
-            "أكل": ["بيتزا", "برجر", "شاورما", "كوشري", "ملوخية", "كباب", "كفتة", "فراخ مشوية", "سمك مقلي", "سوشي", "باستا", "لازانيا", "حواوشي", "فتة", "محشي ورق عنب", "كرنب", "بامية", "مكرونة بشاميل", "طعمية", "فول", "بطاطس محمرة", "سلطة", "شوربة عدس", "مندي", "كبسة", "برياني", "شيش طاووق", "حمام محشي", "سجق", "كبدة", "نودلز", "تاكو", "بان كيك", "وافل", "كريب", "كيكة شوكولاتة", "بسبوسة", "كنافة", "أم علي", "سي فود", "أرز باللبن", "جيلي", "آيس كريم", "كرواسون", "دونتس", "فطير مشلتت", "مسقعة", "شكشوكة", "قلقاس", "شوربة لسان عصفور"],
-            "بلاد": ["مصر", "السعودية", "الإمارات", "الكويت", "قطر", "البحرين", "عمان", "العراق", "الأردن", "فلسطين", "لبنان", "سوريا", "المغرب", "تونس", "الجزائر", "ليبيا", "السودان", "اليمن", "تركيا", "أمريكا", "بريطانيا", "فرنسا", "ألمانيا", "إيطاليا", "إسبانيا", "البرتغال", "روسيا", "الصين", "اليابان", "كوريا الجنوبية", "الهند", "البرازيل", "الأرجنتين", "كندا", "أستراليا", "المكسيك", "جنوب أفريقيا", "هولندا", "بلجيكا", "سويسرا", "السويد", "النرويج", "اليونان", "النمسا", "ماليزيا", "إندونيسيا", "تايلاند", "سنغافورة", "نيوزيلندا", "كولومبيا"]
+            "كورة": ["ريال مدريد", "برشلونة", "ميسي", "رونالدو", "صلاح", "تسلل", "ضربة جزاء", "حكم", "كأس العالم", "دوري الأبطال"],
+            "حيوانات": ["أسد", "نمر", "فهد", "فيل", "زرافة", "قرد", "غزال", "ثعلب", "ذئب", "دب"],
+            "ملابس": ["قميص", "بنطلون", "تيشرت", "جاكيت", "فستان", "تنورة", "بلوفر", "بدلة"],
+            "أكل": ["بيتزا", "برجر", "شاورما", "كوشري", "ملوخية", "كباب", "كفتة", "فراخ مشوية"],
+            "بلاد": ["مصر", "السعودية", "الإمارات", "الكويت", "قطر", "البحرين", "عمان", "العراق"]
         };
 
-        let myName = "";
-        let roomCode = "";
-        let isAdmin = false;
+        let myName = ""; let roomCode = ""; let isAdmin = false;
 
         document.getElementById('btnCreate').onclick = createRoom;
         document.getElementById('btnJoin').onclick = joinRoom;
-        document.getElementById('startGameBtn').onclick = startGame;
+        document.getElementById('startGameBtn').onclick = startPhase1;
+        document.getElementById('goToPhase2Btn').onclick = startPhase2;
+        document.getElementById('nextQuestionBtn').onclick = nextQuestion;
+        document.getElementById('goToPhase3Btn').onclick = startPhase3;
         document.getElementById('btnReset').onclick = resetGame;
 
-        window.showScreen = function(screenId) {
+        function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
         }
@@ -299,21 +202,13 @@
         function createRoom() {
             const adminInput = document.getElementById('adminName').value.trim();
             if (!adminInput) return alert("اكتب اسمك أولاً!");
-            
-            myName = adminInput;
-            roomCode = Math.floor(1000 + Math.random() * 9000).toString();
-            isAdmin = true;
+            myName = adminInput; roomCode = Math.floor(1000 + Math.random() * 9000).toString(); isAdmin = true;
 
             db.ref('rooms/' + roomCode).set({
-                admin: myName,
-                status: "waiting",
-                players: [myName],
-                impostors: [],
-                category: "",
-                word: ""
+                admin: myName, status: "lobby", players: [myName],
+                impostors: [], category: "", word: "", qIndex: 0, votes: {}
             }).then(() => {
-                listenToRoom();
-                showScreen('lobbyScreen');
+                listenToRoom(); showScreen('lobbyScreen');
                 document.getElementById('startGameBtn').style.display = 'block';
                 document.getElementById('waitingMessage').style.display = 'none';
             });
@@ -322,111 +217,182 @@
         function joinRoom() {
             const codeInput = document.getElementById('joinCode').value.trim();
             const nameInput = document.getElementById('playerName').value.trim();
-
             if (!codeInput || !nameInput) return alert("املا البيانات كاملة!");
-
-            roomCode = codeInput;
-            myName = nameInput;
+            roomCode = codeInput; myName = nameInput;
 
             db.ref('rooms/' + roomCode).once('value').then((snapshot) => {
                 if (snapshot.exists()) {
                     let roomData = snapshot.val();
                     let currentPlayers = roomData.players || [];
-                    
-                    if(!currentPlayers.includes(myName)){
-                        currentPlayers.push(myName);
-                    }
+                    if(!currentPlayers.includes(myName)) currentPlayers.push(myName);
 
                     db.ref('rooms/' + roomCode).update({ players: currentPlayers }).then(() => {
-                        isAdmin = false;
-                        listenToRoom();
-                        showScreen('lobbyScreen');
+                        isAdmin = false; listenToRoom(); showScreen('lobbyScreen');
                     });
-                } else {
-                    alert("الغرفة مش موجودة! اتأكد من الكود.");
-                }
+                } else { alert("الغرفة مش موجودة!"); }
             });
         }
 
         function listenToRoom() {
             db.ref('rooms/' + roomCode).on('value', (snapshot) => {
-                const data = snapshot.val();
-                if (!data) return;
+                const data = snapshot.val(); if (!data) return;
                 renderRoom(data);
             });
         }
 
         function renderRoom(data) {
-            document.getElementById('roomCodeDisplay').innerText = roomCode;
-            document.getElementById('playerCount').innerText = data.players.length;
-            
-            const listElement = document.getElementById('playerList');
-            listElement.innerHTML = "";
-            data.players.forEach(p => {
-                const li = document.createElement('li');
-                li.innerText = p + (p === data.admin ? " 👑" : "");
-                listElement.appendChild(li);
-            });
+            // الشاشات العامة والديناميكية بناء على الحالة
+            if (data.status === "lobby") {
+                document.getElementById('roomCodeDisplay').innerText = roomCode;
+                document.getElementById('playerCount').innerText = data.players.length;
+                const listElement = document.getElementById('playerList'); listElement.innerHTML = "";
+                data.players.forEach(p => {
+                    const li = document.createElement('li'); li.innerText = p + (p === data.admin ? " 👑" : "");
+                    listElement.appendChild(li);
+                });
+                showScreen('lobbyScreen');
+            }
 
-            if (data.status === "playing") {
+            if (data.status === "phase1") {
+                document.getElementById('impostorCountDisplay').innerText = `عدد المستبعدين (برا السالفة) في هذه الجولة: ${data.impostors.length} لاعبين`;
                 document.getElementById('categoryDisplay').innerText = `فئة السالفة: [ ${data.category} ]`;
                 const secretBox = document.getElementById('secretDisplay');
                 
                 if (data.impostors.includes(myName)) {
-                    secretBox.innerText = "🤫 أنت برا السالفة! خمن والعب بذكاء وفك الشفرة!";
-                    secretBox.style.backgroundColor = "rgba(255, 51, 51, 0.15)";
+                    secretBox.innerText = "🤫 أنت برا السالفة! حاول تقفش الشفرة وما تخليش حد يحس بيك!";
                     secretBox.style.color = "var(--danger-red)";
-                    secretBox.style.border = "1px solid var(--danger-red)";
                 } else {
                     secretBox.innerText = `السالفة هي: ${data.word}`;
-                    secretBox.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
                     secretBox.style.color = "#000000";
-                    secretBox.style.border = "none";
                 }
-                showScreen('gameScreen');
+                
+                if(isAdmin) {
+                    document.getElementById('goToPhase2Btn').style.display = 'block';
+                    document.getElementById('p1AdminWait').style.display = 'none';
+                } else {
+                    document.getElementById('goToPhase2Btn').style.display = 'none';
+                    document.getElementById('p1AdminWait').style.display = 'block';
+                }
+                showScreen('phase1Screen');
             }
-            
-            if (data.status === "waiting") {
-                showScreen('lobbyScreen');
+
+            if (data.status === "phase2") {
+                const totalPlayers = data.players.length;
+                if (data.qIndex < totalPlayers) {
+                    let asker = data.players[data.qIndex];
+                    let receiver = data.players[(data.qIndex + 1) % totalPlayers];
+                    document.getElementById('questionTurnDisplay').innerHTML = `دور السؤال الحين:<br><span style="color:var(--warning-gold)">${asker}</span> يسأل 👈 <span style="color:var(--text-light)">${receiver}</span>`;
+                    
+                    if(isAdmin) {
+                        document.getElementById('nextQuestionBtn').style.display = 'block';
+                        document.getElementById('goToPhase3Btn').style.display = 'none';
+                    }
+                } else {
+                    document.getElementById('questionTurnDisplay').innerText = "✅ انتهت جولة الأسئلة بالكامل! حان وقت كشف الحقيقة.";
+                    document.getElementById('nextQuestionBtn').style.display = 'none';
+                    if(isAdmin) document.getElementById('goToPhase3Btn').style.display = 'block';
+                }
+                showScreen('phase2Screen');
+            }
+
+            if (data.status === "phase3") {
+                showScreen('phase3Screen');
+                const voteGrid = document.getElementById('voteGridDisplay'); voteGrid.innerHTML = "";
+                const currentVotes = data.votes || {};
+                const totalVoted = Object.keys(currentVotes).length;
+                
+                document.getElementById('votingStatus').innerText = `الأصوات المجمعة حتى الآن: ${totalVoted} من أصل ${data.players.length}`;
+
+                data.players.forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.className = "vote-btn" + (currentVotes[myName] === p ? " voted" : "");
+                    btn.innerText = `${p} (${getVoteCount(currentVotes, p)} صوت)`;
+                    btn.onclick = () => castVote(p);
+                    voteGrid.appendChild(btn);
+                });
+
+                if (totalVoted >= data.players.length) {
+                    document.getElementById('votingStatus').innerText = "🎉 اكتمل التصويت العلني! إليكم النتيجة:";
+                    calculateFinalWinner(data);
+                }
             }
         }
 
-        function startGame() {
+        function startPhase1() {
             if (!isAdmin) return;
             db.ref('rooms/' + roomCode).once('value').then((snapshot) => {
-                const data = snapshot.val();
-                const players = data.players;
-                const playersCount = players.length;
+                const data = snapshot.val(); const players = data.players; const count = players.length;
+                if (count < 3) return alert("اقل عدد للعب هو 3 لاعبين!");
 
                 const categories = Object.keys(databaseWords);
                 const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-                const wordsList = databaseWords[randomCategory];
-                const secretWord = wordsList[Math.floor(Math.random() * wordsList.length)];
+                const secretWord = databaseWords[randomCategory][Math.floor(Math.random() * databaseWords[randomCategory].length)];
 
-                let impostorsCount = 1;
-                if (playersCount > 5) {
-                    impostorsCount = Math.random() > 0.5 ? 2 : 1;
-                }
-
+                // تعديل: لو العدد 7 فما فوق يكون 2 برا السالفة تلقائياً
+                let impCount = count >= 7 ? 2 : 1;
                 let shuffled = [...players].sort(() => 0.5 - Math.random());
-                let impostors = shuffled.slice(0, impostorsCount);
+                let impostors = shuffled.slice(0, impCount);
 
                 db.ref('rooms/' + roomCode).update({
-                    status: "playing",
-                    category: randomCategory,
-                    word: secretWord,
-                    impostors: impostors
+                    status: "phase1", category: randomCategory, word: secretWord,
+                    impostors: impostors, qIndex: 0, votes: {}
                 });
             });
         }
 
-        function resetGame() {
-            db.ref('rooms/' + roomCode).update({
-                status: "waiting",
-                impostors: [],
-                category: "",
-                word: ""
+        function startPhase2() { if(isAdmin) db.ref('rooms/' + roomCode).update({ status: "phase2" }); }
+        function nextQuestion() {
+            if(!isAdmin) return;
+            db.ref('rooms/' + roomCode).once('value').then(snap => {
+                db.ref('rooms/' + roomCode).update({ qIndex: snap.val().qIndex + 1 });
             });
+        }
+        function startPhase3() { if(isAdmin) db.ref('rooms/' + roomCode).update({ status: "phase3" }); }
+
+        function castVote(targetPlayer) {
+            db.ref(`rooms/${roomCode}/votes/${myName}`).set(targetPlayer);
+        }
+
+        function getVoteCount(votes, player) {
+            return Object.values(votes).filter(v => v === player).length;
+        }
+
+        function calculateFinalWinner(data) {
+            const votes = data.votes;
+            const voteCounts = {};
+            data.players.forEach(p => voteCounts[p] = 0);
+            Object.values(votes).forEach(target => voteCounts[target] = (voteCounts[target] || 0) + 1);
+
+            let maxVotes = -1; let votedOut = "";
+            for (let p in voteCounts) {
+                if (voteCounts[p] > maxVotes) { maxVotes = voteCounts[p]; votedOut = p; }
+            }
+
+            const resultBox = document.getElementById('finalResultBox');
+            resultBox.style.display = "block";
+            
+            // التحقق من النتيجة علناً
+            const impostorsList = data.impostors.join(' و ');
+            if (data.impostors.includes(votedOut)) {
+                resultBox.innerText = `👑 كفووو! قفشتوا الشخص الصح وتم طرد: [ ${votedOut} ] وهو فعلاً برا السالفة!\n\n فاز اللاعبون الحقيقيون! 🎉`;
+                resultBox.style.backgroundColor = "rgba(34, 197, 94, 0.2)";
+                resultBox.style.color = "var(--success-green)";
+            } else {
+                resultBox.innerText = `❌ خسارة! ظلمتوا [ ${votedOut} ] وطلع جوا السالفة!\n\nاللي كانوا برا السالفة هم: [ ${impostorsList} ] 🤫\n\n مبروك للي برا السالفة الفوز بالفخامة!`;
+                resultBox.style.backgroundColor = "rgba(255, 51, 51, 0.2)";
+                resultBox.style.color = "var(--danger-red)";
+            }
+
+            if(isAdmin) document.getElementById('btnReset').style.display = "block";
+        }
+
+        function resetGame() {
+            if(!isAdmin) return;
+            db.ref('rooms/' + roomCode).update({
+                status: "lobby", impostors: [], category: "", word: "", qIndex: 0, votes: {}
+            });
+            document.getElementById('finalResultBox').style.display = "none";
+            document.getElementById('btnReset').style.display = "none";
         }
     </script>
 </body>
