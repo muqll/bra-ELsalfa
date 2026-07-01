@@ -19,7 +19,6 @@
             --danger-red: #ff3333;
             --success-green: #22c55e;
             --warning-gold: #eab308;
-            /* ألوان ملكية مخصصة للـ VIP */
             --vip-gold: #f59e0b;
             --vip-gradient: linear-gradient(135deg, #fce38a 0%, #f3a683 100%);
             --vip-gold-dark: #b45309;
@@ -32,7 +31,8 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-dark);
-            background-image: url('background.jpg'); 
+            /* هنا تم ربط الخلفية بامتداد الحروف الكبيرة مباشرة وضمان قراءتها من المجلد الرئيسي */
+            background-image: url('background.JPG'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -76,7 +76,6 @@
         button.admin-action-btn { background-color: var(--warning-gold); color: #000000; font-size: 17px; margin-top: 15px; }
         button.admin-action-btn:hover { background-color: #fcc21b; }
         
-        /* 👑 ستايل أزرار وبطاقات الـ VIP الذهبية الفخمة */
         .vip-card {
             background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(180, 83, 9, 0.05) 100%);
             border: 2px solid var(--vip-gold); padding: 25px 20px; border-radius: 15px; margin-bottom: 20px;
@@ -125,7 +124,6 @@
         .vote-btn { background: rgba(0,0,0,0.6); color: white; border: 1px solid var(--border-color); padding: 12px; font-size: 14px; border-radius: 8px; }
         .vote-btn.voted { background: var(--warning-gold); color: black; border-color: var(--warning-gold); }
 
-        /* 💬 نظام الشات المشترك المطور والعملاق */
         .chat-container {
             margin-top: 30px; border: 2px solid var(--border-color); border-radius: 14px;
             background: rgba(5, 5, 5, 0.95); text-align: right; display: flex; flex-direction: column; overflow: hidden;
@@ -156,7 +154,6 @@
     <div class="container">
         <h1>برا السالفة</h1>
 
-        <!-- 👑 شاشة جدار الدفع الحصرية والـ VIP الإجبارية (البوابة الأولى) -->
         <div id="vipGateScreen" class="screen active">
             <div class="vip-card">
                 <div class="vip-title">👑 قسم الـ VIP الملكي المطور</div>
@@ -168,12 +165,11 @@
                 <button id="btnVerifyVip" class="vip-btn">تفعيل اشتراك الـ VIP ودخول اللعبة ✨</button>
             </div>
 
-            <h3 style="margin: 25px 0 10px 0;">ليس لديك كود تفعيل؟</h3>
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">يمكنك التواصل معنا عبر حسابنا الرسمي على تليجرام:</p>
-            <button class="telegram-pay-btn" onclick="openTelegramPay()">💬 تواصل لتفعيل حسابك الأن</button>
+            <h3 style="margin: 25px 0 10px 0;">ليس لديك كود تفعيل?</h3>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">يمكنك الشراء والاشتراك الفوري عبر حسابنا الرسمي على تليجرام:</p>
+            <button class="telegram-pay-btn" onclick="openTelegramPay()">💬 تواصل لتفعيل حسابك الحين</button>
         </div>
 
-        <!-- شاشات اللعبة الأساسية (تفتح بعد التحقق بنجاح) -->
         <div id="homeScreen" class="screen">
             <div style="margin-bottom: 20px; color: var(--vip-gold); font-weight: bold; font-size: 14px;">
                 ✨ تم تسجيل الدخول كـ حساب VIP ملكي
@@ -197,7 +193,6 @@
             <button onclick="showScreen('homeScreen')" class="secondary-btn">رجوع</button>
         </div>
 
-        <!-- شاشة الانتظار -->
         <div id="lobbyScreen" class="screen">
             <h3>غرفة رقم</h3>
             <div id="roomCodeDisplay" class="code-display"></div>
@@ -207,7 +202,6 @@
             <p id="waitingMessage" style="color: var(--text-muted);">بإنتظار مؤسس الغرفة ليبدأ اللعبة...</p>
         </div>
 
-        <!-- المرحلة 1: التوزيع ومعرفة السالفة -->
         <div id="phase1Screen" class="screen">
             <div class="phase-badge">المرحلة 1: توزيع الأدوار</div>
             <div class="info-card" id="impostorCountDisplay" style="color: var(--warning-gold); font-weight: bold;"></div>
@@ -218,7 +212,6 @@
             <p id="p1AdminWait" style="color: var(--warning-gold); display:none;">بانتظار الأدمن ينقل اللعبة لمرحلة الأسئلة...</p>
         </div>
 
-        <!-- المرحلة 2: الأسئلة والشك -->
         <div id="phase2Screen" class="screen">
             <div class="phase-badge" style="background: var(--accent-white); color: #000;">المرحلة 2: الأسئلة والشك 💬</div>
             <div class="info-card" id="questionTurnDisplay" style="border: 2px solid var(--warning-gold); font-size: 17px; font-weight: bold;">
@@ -228,7 +221,6 @@
             <button id="goToPhase3Btn" style="display:none; background-color: var(--danger-red); color: white;">الانتقال للتصويت العلني 🛑</button>
         </div>
 
-        <!-- المرحلة 3: التصويت والنتيجة -->
         <div id="phase3Screen" class="screen">
             <div class="phase-badge" style="background: var(--danger-red); color: #fff;">المرحلة 3: التصويت العلني 🛑</div>
             <h3>مين الحرامي اللي برا السالفة؟ صوتوا الحين!</h3>
@@ -241,7 +233,6 @@
             <button id="btnReset" class="secondary-btn" style="display:none; margin-top: 15px;">العودة للروم الأساسية</button>
         </div>
 
-        <!-- 💬 نظام الشات المشترك المطور والعملاق -->
         <div id="globalChat" class="chat-container" style="display:none;">
             <div class="chat-header">
                 <span>💬 شات الروم اللايف - قفش وشكوك</span>
@@ -282,8 +273,6 @@
         };
 
         let myName = ""; let roomCode = ""; let isAdmin = false;
-        
-        // الشفرة بالحروف الصغيرة
         const SECRET_VIP_CODE = "mumin06";
 
         document.getElementById('btnVerifyVip').onclick = verifyVipCode;
@@ -305,13 +294,11 @@
             } 
         });
 
-        // تم ربط الحساب بالمعرف الشخصي المباشر المأخوذ من صورة الـ QR
         function openTelegramPay() {
             window.open("https://t.me/PRRRIL", "_blank");
         }
 
         function verifyVipCode() {
-            // تحويل المدخلات إلى حروف صغيرة تلقائياً لمنع أي أخطاء من المستخدم
             const enteredCode = document.getElementById('vipCodeInput').value.trim().toLowerCase();
             if (enteredCode === SECRET_VIP_CODE) {
                 alert("👑 أهلاً بك يا ملك! تم تفعيل كود الـ VIP الذهبي بنجاح.");
@@ -423,9 +410,7 @@
             db.ref('chats/' + roomCode).push({ sender: myName, text: text, timestamp: Date.now() });
             input.value = "";
             
-            setTimeout(() => {
-                input.focus();
-            }, 10);
+            setTimeout(() => { input.focus(); }, 10);
         }
 
         function sendSystemMessage(systemText) {
